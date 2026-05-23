@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lucentra — Bookkeeping & Tech Consulting</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #FAF7F2;
+      --warm-white: #FFFCF8;
+      --charcoal: #1E1E1E;
+      --slate: #4A4A4A;
+      --muted: #8A8680;
+      --teal: #1C3461;
+      --teal-light: #2C4E8F;
+      --teal-pale: #EBF0F8;
+      --amber: #C4A26B;
+      --amber-pale: #FBF5E8;
+      --divider: #E8E3DC;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--warm-white);
+      color: var(--charcoal);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,252,248,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--divider);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      color: var(--charcoal);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .nav-logo span { color: var(--teal); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.875rem; font-weight: 500;
+      color: var(--slate); text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta {
+      background: var(--teal); color: white;
+      padding: 0.55rem 1.3rem; border-radius: 6px;
+      font-size: 0.875rem; font-weight: 500;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--teal-light); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 100px 5% 80px;
+      background: var(--warm-white);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -100px; right: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(28,52,97,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -80px; left: 10%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(196,162,107,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .hero-eyebrow {
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      line-height: 1.15;
+      color: var(--charcoal);
+      margin-bottom: 1.4rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--teal);
+    }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--slate);
+      line-height: 1.75; margin-bottom: 2.2rem; max-width: 460px;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--teal); color: white;
+      padding: 0.85rem 1.8rem; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 500;
+      text-decoration: none; transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--teal-light); transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent; color: var(--charcoal);
+      padding: 0.85rem 1.8rem; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 500; border: 1.5px solid var(--divider);
+      text-decoration: none; transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .btn-secondary:hover { border-color: var(--teal); color: var(--teal); }
+
+    /* Hero visual */
+    .hero-visual {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      position: relative;
+      animation: fadeUp 0.8s ease 0.2s both;
+    }
+    .hero-card {
+      background: white;
+      border: 1px solid var(--divider);
+      border-radius: 14px; padding: 1.5rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .hero-card:first-child { grid-column: 1 / -1; }
+    .hero-card .card-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; margin-bottom: 0.8rem;
+    }
+    .icon-teal { background: var(--teal-pale); }
+    .icon-amber { background: var(--amber-pale); }
+    .hero-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .hero-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+    .stat { font-family: var(--serif); font-size: 1.8rem; color: var(--teal); }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 90px 5%; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      line-height: 1.2; margin-bottom: 1rem;
+    }
+    .section-sub {
+      font-size: 1rem; color: var(--slate);
+      max-width: 520px; line-height: 1.75;
+    }
+
+    /* ── SERVICES ── */
+    .services { background: var(--cream); }
+    .services-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3.5rem;
+    }
+    .service-card {
+      background: white; border-radius: 16px;
+      padding: 2.5rem; border: 1px solid var(--divider);
+      transition: box-shadow 0.25s, transform 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    }
+    .service-card.bookkeeping::before { background: var(--teal); }
+    .service-card.tech::before { background: var(--amber); }
+    .service-card:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+      transform: translateY(-3px);
+    }
+    .dba-badge {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.3rem 0.75rem;
+      border-radius: 20px; margin-bottom: 1.2rem;
+    }
+    .dba-teal { background: var(--teal-pale); color: var(--teal); }
+    .dba-amber { background: var(--amber-pale); color: var(--amber); }
+    .service-card h3 {
+      font-family: var(--serif); font-size: 1.6rem; margin-bottom: 0.8rem;
+    }
+    .service-card p { color: var(--slate); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .service-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .service-list li {
+      font-size: 0.9rem; color: var(--slate);
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .service-list li::before {
+      content: '✓';
+      width: 20px; height: 20px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 700; flex-shrink: 0;
+    }
+    .bookkeeping .service-list li::before { background: var(--teal-pale); color: var(--teal); }
+    .tech .service-list li::before { background: var(--amber-pale); color: var(--amber); }
+    .service-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      margin-top: 1.8rem; font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; transition: gap 0.2s;
+    }
+    .service-link.teal { color: var(--teal); }
+    .service-link.amber { color: var(--amber); }
+    .service-link:hover { gap: 0.7rem; }
+
+    /* ── PRICING TABS ── */
+    .pricing { background: var(--warm-white); }
+    .pricing-tabs {
+      display: flex; gap: 0.5rem; margin: 3rem 0 2.5rem;
+      border-bottom: 2px solid var(--divider);
+      flex-wrap: wrap;
+    }
+    .pricing-tab {
+      padding: 0.75rem 1.5rem; font-size: 0.9rem; font-weight: 600;
+      color: var(--muted); cursor: pointer; background: none; border: none;
+      border-bottom: 2px solid transparent; margin-bottom: -2px;
+      font-family: var(--sans); letter-spacing: 0.01em;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .pricing-tab:hover { color: var(--charcoal); }
+    .pricing-tab.active { color: var(--teal); border-bottom-color: var(--teal); }
+    .pricing-tab.amber-tab.active { color: var(--amber); border-bottom-color: var(--amber); }
+    .pricing-tab.bundle-tab.active { color: var(--charcoal); border-bottom-color: var(--charcoal); }
+    .pricing-panel { display: none; }
+    .pricing-panel.active { display: block; }
+    .pricing-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .pricing-card {
+      background: white; border-radius: 16px; padding: 2rem;
+      border: 1.5px solid var(--divider);
+      display: flex; flex-direction: column;
+      transition: box-shadow 0.25s, transform 0.25s;
+      position: relative;
+    }
+    .pricing-card:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.09);
+      transform: translateY(-3px);
+    }
+    .pricing-card.featured {
+      border-color: var(--teal);
+      box-shadow: 0 8px 32px rgba(28,52,97,0.12);
+    }
+    .pricing-card.featured-amber {
+      border-color: var(--amber);
+      box-shadow: 0 8px 32px rgba(196,162,107,0.12);
+    }
+    .pricing-card.featured-dark {
+      border-color: var(--charcoal);
+      box-shadow: 0 8px 32px rgba(30,30,30,0.12);
+    }
+    .badge-popular {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--teal); color: white;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.3rem 0.85rem; border-radius: 20px;
+      white-space: nowrap;
+    }
+    .badge-popular.amber { background: var(--amber); }
+    .badge-popular.dark { background: var(--charcoal); }
+    .pricing-card-tier {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 0.5rem;
+    }
+    .tier-teal { color: var(--teal); }
+    .tier-amber { color: var(--amber); }
+    .tier-dark { color: var(--charcoal); }
+    .pricing-card h3 {
+      font-family: var(--serif); font-size: 1.35rem; margin-bottom: 0.4rem;
+    }
+    .pricing-price {
+      font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem;
+      color: var(--charcoal);
+    }
+    .pricing-price span { font-size: 0.85rem; font-weight: 400; color: var(--muted); }
+    .pricing-desc {
+      font-size: 0.88rem; color: var(--slate); line-height: 1.65;
+      margin: 0.75rem 0 1.25rem; padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--divider);
+    }
+    .pricing-features { list-style: none; flex: 1; display: flex; flex-direction: column; gap: 0.55rem; }
+    .pricing-features li {
+      font-size: 0.875rem; color: var(--slate);
+      display: flex; align-items: flex-start; gap: 0.55rem; line-height: 1.4;
+    }
+    .pricing-features li::before {
+      content: '✓'; flex-shrink: 0; margin-top: 1px;
+      width: 18px; height: 18px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700;
+    }
+    .check-teal li::before { background: var(--teal-pale); color: var(--teal); }
+    .check-amber li::before { background: var(--amber-pale); color: var(--amber); }
+    .check-dark li::before { background: #f0f0f0; color: var(--charcoal); }
+    .pricing-cta {
+      display: block; text-align: center;
+      margin-top: 1.75rem; padding: 0.75rem 1rem;
+      border-radius: 8px; font-size: 0.88rem; font-weight: 600;
+      text-decoration: none; transition: background 0.2s, color 0.2s, border-color 0.2s;
+      border: 1.5px solid var(--divider); color: var(--charcoal);
+    }
+    .pricing-cta:hover { border-color: var(--teal); color: var(--teal); }
+    .pricing-cta.filled {
+      background: var(--teal); color: white; border-color: var(--teal);
+    }
+    .pricing-cta.filled:hover { background: var(--teal-light); border-color: var(--teal-light); }
+    .pricing-cta.filled-amber {
+      background: var(--amber); color: white; border-color: var(--amber);
+    }
+    .pricing-cta.filled-amber:hover { background: #d98a35; border-color: #d98a35; }
+    .pricing-cta.filled-dark {
+      background: var(--charcoal); color: white; border-color: var(--charcoal);
+    }
+    .pricing-cta.filled-dark:hover { background: #333; border-color: #333; }
+    @media (max-width: 900px) {
+      .pricing-cards { grid-template-columns: 1fr; }
+      .pricing-card.featured, .pricing-card.featured-amber, .pricing-card.featured-dark {
+        order: -1;
+      }
+    }
+
+    /* ── WHY US ── */
+    .why { background: var(--warm-white); }
+    .why-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+      margin-top: 3rem;
+    }
+    .why-item { text-align: center; padding: 1.5rem; }
+    .why-icon {
+      width: 56px; height: 56px; border-radius: 14px;
+      background: var(--teal-pale); margin: 0 auto 1rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+    }
+    .why-item h4 { font-weight: 600; margin-bottom: 0.5rem; }
+    .why-item p { font-size: 0.9rem; color: var(--slate); line-height: 1.65; }
+
+    /* ── ABOUT ── */
+    .about { background: var(--cream); }
+    .about-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .about-visual {
+      background: white; border-radius: 20px;
+      border: 1px solid var(--divider);
+      padding: 2.5rem; text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+    }
+    .team-avatars { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 1.6rem; color: white;
+      font-style: italic;
+    }
+    .avatar-teal { background: linear-gradient(135deg, var(--teal), var(--teal-light)); }
+    .avatar-amber { background: linear-gradient(135deg, var(--amber), #d4b87e); }
+    .team-names { font-weight: 600; margin-bottom: 0.3rem; }
+    .team-sub { font-size: 0.85rem; color: var(--muted); }
+    .about-text p { color: var(--slate); line-height: 1.8; margin-bottom: 1rem; }
+    .about-text p:last-child { margin-bottom: 0; }
+
+    /* ── BIO CARDS ── */
+    .bios-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+    }
+    .bio-card {
+      background: white; border-radius: 20px;
+      border: 1px solid var(--divider);
+      padding: 2.5rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .bio-header {
+      display: flex; align-items: center; gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .bio-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 1.5rem; color: white;
+      font-style: italic; flex-shrink: 0;
+    }
+    .bio-name {
+      font-family: var(--serif); font-size: 1.5rem; margin-bottom: 0.15rem;
+    }
+    .bio-role { font-size: 0.82rem; color: var(--muted); font-weight: 500; }
+    .bio-card p {
+      color: var(--slate); line-height: 1.8; font-size: 0.93rem;
+      margin-bottom: 0.85rem;
+    }
+    .bio-closer {
+      font-style: italic; color: var(--muted) !important;
+      border-left: 3px solid var(--divider);
+      padding-left: 1rem; margin-top: 0.25rem;
+    }
+    .bio-cta {
+      display: inline-block; margin-top: 1.25rem;
+      font-size: 0.88rem; font-weight: 600;
+      text-decoration: none; transition: opacity 0.2s;
+    }
+    .teal-cta { color: var(--teal); }
+    .amber-cta { color: var(--amber); }
+    .bio-cta:hover { opacity: 0.7; }
+    @media (max-width: 768px) {
+      .bios-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--charcoal); color: white;
+      text-align: center; padding: 90px 5%;
+    }
+    .cta-section .section-label { color: var(--teal-light); }
+    .cta-section .section-title { color: white; margin: 0 auto 1rem; }
+    .cta-section p { color: #b0b0b0; font-size: 1rem; margin-bottom: 2.5rem; }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      background: white; color: var(--charcoal);
+      padding: 0.9rem 2rem; border-radius: 8px;
+      font-weight: 600; text-decoration: none; font-size: 0.95rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,255,255,0.15); }
+    .btn-outline-white {
+      background: transparent; color: white;
+      padding: 0.9rem 2rem; border-radius: 8px;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      font-weight: 500; text-decoration: none; font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+    .btn-outline-white:hover { border-color: white; }
+
+    /* ── CONTACT ── */
+    .contact { background: var(--warm-white); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+      margin-top: 3rem;
+    }
+    .contact-info h3 { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 1rem; }
+    .contact-info p { color: var(--slate); line-height: 1.75; margin-bottom: 1.5rem; }
+    .contact-detail {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--slate);
+    }
+    .contact-detail span:first-child {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: var(--teal-pale); display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
+    }
+    .contact-detail a { color: var(--slate); text-decoration: none; transition: color 0.2s; }
+    .contact-detail a:hover { color: var(--teal); }
+
+    /* Book a call button */
+    .btn-book {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--teal); color: white;
+      padding: 0.85rem 1.6rem; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 500;
+      text-decoration: none; transition: background 0.2s, transform 0.15s;
+      margin-top: 0.5rem;
+    }
+    .btn-book:hover { background: var(--teal-light); transform: translateY(-1px); }
+
+    /* Form */
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.82rem; font-weight: 500; color: var(--slate); }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 0.75rem 1rem; border: 1.5px solid var(--divider);
+      border-radius: 8px; font-family: var(--sans); font-size: 0.9rem;
+      color: var(--charcoal); background: white;
+      transition: border-color 0.2s; outline: none;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--teal);
+    }
+    .form-group textarea { min-height: 100px; resize: vertical; }
+    .form-submit {
+      background: var(--teal); color: white;
+      padding: 0.9rem; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 600; border: none;
+      cursor: pointer; font-family: var(--sans);
+      transition: background 0.2s;
+    }
+    .form-submit:hover { background: var(--teal-light); }
+    .form-success {
+      display: none;
+      background: var(--teal-pale); border: 1px solid var(--teal);
+      border-radius: 8px; padding: 1rem 1.2rem;
+      color: var(--teal); font-size: 0.9rem; font-weight: 500;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--charcoal); color: #888;
+      padding: 2.5rem 5%; text-align: center;
+      font-size: 0.85rem; border-top: 1px solid #2a2a2a;
+    }
+    footer strong { color: white; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-top {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-family: var(--serif); font-size: 1.3rem; color: white; }
+    .footer-logo span { color: var(--teal-light); }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { color: #888; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: white; }
+    .footer-divs {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+      justify-content: center; margin-bottom: 1.2rem;
+    }
+    .footer-dba {
+      font-size: 0.78rem; padding: 0.25rem 0.7rem; border-radius: 20px;
+      border: 1px solid #333;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      opacity: 0; animation: fadeUp 0.7s ease forwards;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.25s; }
+    .delay-3 { animation-delay: 0.4s; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .hero-inner, .services-grid, .about-inner, .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-visual { display: none; }
+      .why-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Lucentra<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="nav-cta">Book a Free Call</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="hero-eyebrow fade-up">Bookkeeping & Tech Consulting — York, PA & Beyond</p>
+        <h1 class="fade-up delay-1">We handle the books.<br>We handle the tech.<br><em>You handle the rest.</em></h1>
+        <p class="hero-sub fade-up delay-2">We founded Lucentra with one guiding belief: small businesses deserve support that feels clear, approachable, and within reach. We're Sarah & Bill — here to bring clarity, calm, and steady partnership, one relationship at a time.</p>
+        <div class="hero-btns fade-up delay-3">
+          <a href="#services" class="btn-primary">Explore Services</a>
+          <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="btn-secondary">Schedule a Free Call</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card" style="grid-column: 1 / -1;">
+          <div style="font-size:1.6rem;margin-bottom:0.75rem;color:var(--teal);font-family:var(--serif);line-height:1;">"</div>
+          <p style="font-size:0.95rem;color:var(--slate);line-height:1.7;margin-bottom:0.75rem;">I love the moment a client says, <em>"I finally feel like I understand my numbers."</em> Clean books bring a quiet sense of calm and confidence, creating space for the work that truly matters.</p>
+          <p style="font-size:0.8rem;font-weight:600;color:var(--teal);">— Sarah, Bookkeeping Lead</p>
+        </div>
+        <div class="hero-card" style="grid-column: 1 / -1;">
+          <div style="font-size:1.6rem;margin-bottom:0.75rem;color:var(--amber);font-family:var(--serif);line-height:1;">"</div>
+          <p style="font-size:0.95rem;color:var(--slate);line-height:1.7;margin-bottom:0.75rem;">Technology should be boring in the best way — reliable, invisible, and never the reason your day goes sideways.</p>
+          <p style="font-size:0.8rem;font-weight:600;color:var(--amber);">— Bill, Technology Advisor</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="section-inner">
+      <p class="section-label">Our Divisions</p>
+      <h2 class="section-title">Two specialties, one trusted team.</h2>
+      <p class="section-sub">Each division is focused and expert, operating under the Lucentra name you can count on.</p>
+
+      <div class="services-grid">
+        <div class="service-card bookkeeping">
+          <span class="dba-badge dba-teal">Lucentra Bookkeeping</span>
+          <h3>Financial Clarity</h3>
+          <p>Clean, accurate books so you always know where your business stands. We handle the numbers so you can focus on what you do best.</p>
+          <ul class="service-list">
+            <li>Monthly bookkeeping & reconciliation</li>
+            <li>Accounts payable & receivable</li>
+            <li>Financial reporting & dashboards</li>
+            <li>QuickBooks / Xero setup & cleanup</li>
+            <li>Tax-ready financials</li>
+          </ul>
+          <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="service-link teal">Book a free consultation →</a>
+        </div>
+
+        <div class="service-card tech">
+          <span class="dba-badge dba-amber">Lucentra Tech Consulting</span>
+          <h3>Technology Confidence</h3>
+          <p>Practical technology guidance tailored to small and mid-size businesses. We simplify complexity and help you move forward with confidence.</p>
+          <ul class="service-list">
+            <li>IT strategy & systems review</li>
+            <li>Software selection & implementation</li>
+            <li>Process automation</li>
+            <li>Cybersecurity fundamentals</li>
+            <li>Ongoing tech support & advising</li>
+          </ul>
+          <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="service-link amber">Discuss your tech needs →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="section-inner">
+      <p class="section-label">Pricing</p>
+      <h2 class="section-title">Packages built for real businesses.</h2>
+      <p class="section-sub">Transparent, flat-rate pricing — no surprises. Choose the level of support that fits where you are right now.</p>
+
+      <!-- Tabs -->
+      <div class="pricing-tabs" role="tablist">
+        <button class="pricing-tab active" role="tab" data-panel="financial" aria-selected="true">📊 Financial Services</button>
+        <button class="pricing-tab amber-tab" role="tab" data-panel="tech" aria-selected="false">💻 Technology Services</button>
+        <button class="pricing-tab bundle-tab" role="tab" data-panel="bundles" aria-selected="false">🌟 Bundles</button>
+      </div>
+
+      <!-- Financial Services -->
+      <div class="pricing-panel active" id="panel-financial" role="tabpanel">
+        <div class="pricing-cards">
+
+          <div class="pricing-card">
+            <p class="pricing-card-tier tier-teal">Essential</p>
+            <h3>Essential Bookkeeping</h3>
+            <p class="pricing-price">$300–$350 <span>/ month</span></p>
+            <p class="pricing-desc">For small businesses or nonprofits that need clean books and monthly reconciliation.</p>
+            <ul class="pricing-features check-teal">
+              <li>Monthly categorization</li>
+              <li>Bank &amp; credit card reconciliation</li>
+              <li>Basic reporting</li>
+              <li>Email support</li>
+            </ul>
+            <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="pricing-cta">Get started →</a>
+          </div>
+
+          <div class="pricing-card featured">
+            <span class="badge-popular">Most Popular</span>
+            <p class="pricing-card-tier tier-teal">Standard</p>
+            <h3>Standard Financial Support</h3>
+            <p class="pricing-price">$400–$500 <span>/ month</span></p>
+            <p class="pricing-desc">Your most common package — bookkeeping plus admin support in one.</p>
+            <ul class="pricing-features check-teal">
+              <li>Everything in Essential</li>
+              <li>AP/AR support</li>
+              <li>Monthly financial snapshots</li>
+              <li>Light admin tasks</li>
+              <li>Priority email support</li>
+            </ul>
+            <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="pricing-cta filled">Get started →</a>
+          </div>
+
+          <div class="pricing-card">
+            <p class="pricing-card-tier tier-teal">Premium</p>
+            <h3>Premium Financial Management</h3>
+            <p class="pricing-price">$600–$750 <span>/ month</span></p>
+            <p class="pricing-desc">For organizations that want a steady, ongoing financial partner.</p>
+            <ul class="pricing-features check-teal">
+              <li>Everything in Standard</li>
+              <li>Monthly advisory</li>
+              <li>Budgeting support</li>
+              <li>Workflow optimization</li>
+              <li>Priority scheduling</li>
+            </ul>
+            <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="pricing-cta">Get started →</a>
+          </div>
+
+        </div>
+
+        <!-- One-Time Services -->
+        <div style="margin-top:3rem;">
+          <p style="font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);margin-bottom:0.5rem;">One-Time Services</p>
+          <h3 style="font-family:var(--serif);font-size:1.4rem;margin-bottom:0.5rem;color:var(--charcoal);">Need a fresh start?</h3>
+          <p style="font-size:0.95rem;color:var(--slate);max-width:520px;margin-bottom:2rem;line-height:1.7;">These one-time engagements are designed to get you set up, cleaned up, or organized — so ongoing work feels lighter from day one.</p>
+          <div class="pricing-cards">
+
+            <div class="pricing-card">
+              <p class="pricing-card-tier tier-teal">Cleanup</p>
+              <h3>Cleanup &amp; Catch-Up</h3>
+              <p class="pricing-price">Starting at $300</p>
+              <p class="pricing-desc">For businesses ready to clear the clutter and get back to clean, understandable books.</p>
+              <ul class="pricing-features check-teal">
+                <li>Past-month categorization</li>
+                <li>Bank &amp; credit card reconciliation</li>
+                <li>Reporting cleanup</li>
+                <li>Optional year-end prep</li>
+              </ul>
+              <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="pricing-cta">Get started →</a>
+            </div>
+
+            <div class="pricing-card">
+              <p class="pricing-card-tier tier-teal">Onboarding</p>
+              <h3>Setup &amp; Onboarding</h3>
+              <p class="pricing-price">Starting at $300</p>
+              <p class="pricing-desc">A clean, confident start with systems that make sense from day one.</p>
+              <ul class="pricing-features check-teal">
+                <li>Chart of accounts setup</li>
+                <li>Software onboarding</li>
+                <li>Initial workflows</li>
+              </ul>
+              <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="pricing-cta">Get started →</a>
+            </div>
+
+            <div class="pricing-card">
+              <p class="pricing-card-tier tier-teal">Workflows</p>
+              <h3>Workflow Buildouts</h3>
+              <p class="pricing-price">Starting at $350</p>
+              <p class="pricing-desc">Thoughtful processes that make your financial world feel lighter and easier to manage.</p>
+              <ul class="pricing-features check-teal">
+                <li>AP/AR process design</li>
+                <li>Reporting templates</li>
+                <li>Admin workflow setup</li>
+              </ul>
+              <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="pricing-cta">Get started →</a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Technology Services -->
+      <div class="pricing-panel" id="panel-tech" role="tabpanel">
+        <div class="pricing-cards">
+
+          <div class="pricing-card">
+            <p class="pricing-card-tier tier-amber">Lite</p>
+            <h3>Tech Support Lite</h3>
+            <p class="pricing-price">$200–$300 <span>/ month</span></p>
+            <p class="pricing-desc">For small teams that need reliable help without a full IT contract.</p>
+            <ul class="pricing-features check-amber">
+              <li>Basic troubleshooting</li>
+              <li>Device support</li>
+              <li>Software updates</li>
+              <li>Email support</li>
+            </ul>
+            <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="pricing-cta">Get started →</a>
+          </div>
+
+          <div class="pricing-card featured-amber">
+            <span class="badge-popular amber">Most Popular</span>
+            <p class="pricing-card-tier tier-amber">Standard</p>
+            <h3>Standard Tech Support</h3>
+            <p class="pricing-price">$350–$500 <span>/ month</span></p>
+            <p class="pricing-desc">Comprehensive tech support — the foundation for keeping your business running smoothly.</p>
+            <ul class="pricing-features check-amber">
+              <li>Everything in Lite</li>
+              <li>Systems maintenance</li>
+              <li>Cloud support</li>
+              <li>Security basics</li>
+              <li>Priority response</li>
+            </ul>
+            <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="pricing-cta filled-amber">Get started →</a>
+          </div>
+
+          <div class="pricing-card">
+            <p class="pricing-card-tier tier-amber">Premium</p>
+            <h3>Premium Tech Management</h3>
+            <p class="pricing-price">$600–$900 <span>/ month</span></p>
+            <p class="pricing-desc">For businesses that want a dedicated tech partner in their corner.</p>
+            <ul class="pricing-features check-amber">
+              <li>Everything in Standard</li>
+              <li>Automation</li>
+              <li>System builds</li>
+              <li>Advanced troubleshooting</li>
+              <li>Strategic tech planning</li>
+            </ul>
+            <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="pricing-cta">Get started →</a>
+          </div>
+
+        </div>
+
+        <!-- One-Time Tech Services -->
+        <div style="margin-top:3rem;">
+          <p style="font-size:0.78rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:0.5rem;">One-Time Services</p>
+          <h3 style="font-family:var(--serif);font-size:1.4rem;margin-bottom:0.5rem;color:var(--charcoal);">Bigger projects, handled right.</h3>
+          <p style="font-size:0.95rem;color:var(--slate);max-width:520px;margin-bottom:2rem;line-height:1.7;">One-time engagements for setup, transitions, and projects that need a steady, experienced hand.</p>
+          <div class="pricing-cards">
+
+            <div class="pricing-card">
+              <p class="pricing-card-tier tier-amber">Setup</p>
+              <h3>Device &amp; Network Setup</h3>
+              <p class="pricing-price">Starting at $250</p>
+              <p class="pricing-desc">Smooth, reliable setup for the tools your team depends on.</p>
+              <ul class="pricing-features check-amber">
+                <li>Device configuration</li>
+                <li>Network setup</li>
+                <li>Basic security</li>
+              </ul>
+              <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="pricing-cta">Get started →</a>
+            </div>
+
+            <div class="pricing-card">
+              <p class="pricing-card-tier tier-amber">Security</p>
+              <h3>Cloud &amp; Security Projects</h3>
+              <p class="pricing-price">Starting at $400</p>
+              <p class="pricing-desc">Support that strengthens your systems and brings peace of mind.</p>
+              <ul class="pricing-features check-amber">
+                <li>Cloud migrations</li>
+                <li>Security hardening</li>
+                <li>Access management</li>
+              </ul>
+              <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="pricing-cta">Get started →</a>
+            </div>
+
+            <div class="pricing-card">
+              <p class="pricing-card-tier tier-amber">Migrations</p>
+              <h3>System Builds &amp; Migrations</h3>
+              <p class="pricing-price">Starting at $600</p>
+              <p class="pricing-desc">Guidance through bigger transitions — steady, clear, and stress-free.</p>
+              <ul class="pricing-features check-amber">
+                <li>System builds</li>
+                <li>Software rollouts</li>
+                <li>Advanced troubleshooting</li>
+              </ul>
+              <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="pricing-cta">Get started →</a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bundles -->
+      <div class="pricing-panel" id="panel-bundles" role="tabpanel">
+        <p style="font-size:0.95rem;color:var(--slate);margin-bottom:2rem;max-width:580px;">These packages combine both sides of the business — the fastest path to comprehensive support and the best value for growing organizations.</p>
+        <div class="pricing-cards" style="grid-template-columns: repeat(2, 1fr); max-width: 780px;">
+
+          <div class="pricing-card">
+            <p class="pricing-card-tier tier-dark">Operations</p>
+            <h3>Operations Support Bundle</h3>
+            <p class="pricing-price">$900–$1,100 <span>/ month</span></p>
+            <p class="pricing-desc">Financial clarity and tech reliability, handled together.</p>
+            <ul class="pricing-features check-dark">
+              <li>Standard Bookkeeping</li>
+              <li>Standard Tech Support</li>
+              <li>Admin support</li>
+              <li>Priority communication</li>
+            </ul>
+            <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="pricing-cta">Get started →</a>
+          </div>
+
+          <div class="pricing-card featured-dark">
+            <span class="badge-popular dark">Best Value</span>
+            <p class="pricing-card-tier tier-dark">Full Suite</p>
+            <h3>Full Support Bundle</h3>
+            <p class="pricing-price">$1,200–$1,400 <span>/ month</span></p>
+            <p class="pricing-desc">Your highest-value, lowest-stress offering — premium support across both disciplines.</p>
+            <ul class="pricing-features check-dark">
+              <li>Premium Financial Management</li>
+              <li>Premium Tech Management</li>
+              <li>Monthly advisory</li>
+              <li>Systems optimization</li>
+              <li>Priority scheduling</li>
+            </ul>
+            <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="pricing-cta filled-dark">Get started →</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="why">
+    <div class="section-inner">
+      <p class="section-label">Why Lucentra</p>
+      <h2 class="section-title">What working with us actually feels like.</h2>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-icon">🤝</div>
+          <h4>You talk to us, not a system</h4>
+          <p>When you reach out, you hear back from Sarah or Bill — not a ticketing queue or a generic support inbox. We know your business because we work in it with you.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">⚡</div>
+          <h4>Books and tech, under one roof</h4>
+          <p>Sarah handles your financials. Bill handles your IT. We talk to each other. When both sides of your operations are in sync, things stop falling through the cracks.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">🔍</div>
+          <h4>No confusion, no surprises</h4>
+          <p>Simple pricing, clear communication, and honest timelines so you always know what to expect.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="section-inner">
+      <p class="section-label" style="text-align:center;">About Us</p>
+      <h2 class="section-title" style="text-align:center;margin-bottom:0.75rem;">A team grounded in partnership, clarity, and steady support.</h2>
+      <p style="text-align:center;color:var(--slate);max-width:560px;margin:0 auto 3.5rem;line-height:1.75;">We built Lucentra to give small businesses and nonprofits a reliable ally — bringing structure, understanding, and genuine relief to the work behind the scenes.</p>
+
+      <div class="bios-grid">
+
+        <!-- Sarah -->
+        <div class="bio-card">
+          <div class="bio-header">
+            <div class="avatar avatar-teal bio-avatar">S</div>
+            <div>
+              <h3 class="bio-name">Sarah</h3>
+              <p class="bio-role">Founder &amp; Bookkeeping Lead</p>
+              <span class="dba-badge dba-teal" style="font-size:0.7rem;margin-top:0.4rem;display:inline-block;">Lucentra Bookkeeping</span>
+            </div>
+          </div>
+          <p>I'm Sarah, the founder of Lucentra. I help small businesses and nonprofits find clarity, structure, and calm in their financial and operational workflows.</p>
+          <p>With a background in bookkeeping, financial operations, and administrative systems, I focus on creating clean, dependable processes that make day-to-day work feel lighter and more manageable. I believe in meeting people where they are, communicating clearly, and building systems that actually support the humans using them.</p>
+          <p class="bio-closer">My role is to bring clarity and calm to your financial world, so you can move forward with confidence and ease.</p>
+          <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="bio-cta teal-cta">Book a call with Sarah →</a>
+        </div>
+
+        <!-- Bill -->
+        <div class="bio-card">
+          <div class="bio-header">
+            <div class="avatar avatar-amber bio-avatar">B</div>
+            <div>
+              <h3 class="bio-name">Bill</h3>
+              <p class="bio-role">Technology Advisor</p>
+              <span class="dba-badge dba-amber" style="font-size:0.7rem;margin-top:0.4rem;display:inline-block;">Lucentra Tech Consulting</span>
+            </div>
+          </div>
+          <p>Bill is a seasoned technology advisor with more than 25 years of experience helping small and midsize businesses build secure, reliable, and easy-to-manage IT environments. He specializes in the full spectrum of modern IT — from Microsoft 365 and Azure to laptops, PCs, networking, and day-to-day operational support.</p>
+          <p>Bill is known for his practical, steady approach: he listens first, understands how each business actually works, and then designs solutions that improve security, reduce downtime, and simplify the technology footprint.</p>
+          <p class="bio-closer">Clients trust me because I make technology predictable, secure, and aligned with the way real people work.</p>
+          <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="bio-cta amber-cta">Discuss your tech needs →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-section">
+    <div class="section-inner">
+      <p class="section-label">Ready to get started?</p>
+      <h2 class="section-title" style="max-width:580px;">Let's talk about your business.</h2>
+      <p>No pressure, no sales script — just a clear, 30‑minute conversation with Sarah or Bill to understand your needs and see if we're a fit.</p>
+      <div class="cta-btns">
+        <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="btn-white">Schedule a Free Consultation</a>
+        <a href="#services" class="btn-outline-white">View Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="section-inner">
+      <p class="section-label">Contact</p>
+      <h2 class="section-title">Say hello.</h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>We'd love to hear from you.</h3>
+          <p>Reach out by email or book a free 30-minute discovery call — no obligation, just a real conversation about what you're working on and how we might help.</p>
+          <div class="contact-detail">
+            <span>📧</span>
+            <span><a href="mailto:hello@lucentrapartners.com">hello@lucentrapartners.com</a></span>
+          </div>
+          <div class="contact-detail">
+            <span>📍</span>
+            <span>Serving clients in York, PA &amp; remotely nationwide</span>
+          </div>
+          <a href="https://calendly.com/sarah-lucentrapartners" target="_blank" class="btn-book">
+            📅 Book a Free 30-Min Call
+          </a>
+        </div>
+        <div>
+          <!-- ─────────────────────────────────────────────────────────
+               FORMSPREE SETUP (takes 2 minutes):
+               1. Go to https://formspree.io and sign up free
+               2. Click "New Form" and name it "Lucentra Contact"
+               3. Copy your form endpoint — looks like:
+                  https://formspree.io/f/xxxxxxxx
+               4. Replace YOUR_FORMSPREE_ID below with that endpoint
+          ───────────────────────────────────────────────────────── -->
+          <form
+            class="contact-form"
+            action="https://formspree.io/f/xredkagb"
+            method="POST"
+            id="contact-form"
+          >
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" name="first_name" placeholder="Jane" required />
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" name="last_name" placeholder="Smith" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" placeholder="jane@yourbusiness.com" required />
+            </div>
+            <div class="form-group">
+              <label>I'm interested in…</label>
+              <select name="service" required>
+                <option value="">Select a service</option>
+                <option>Bookkeeping (Lucentra Bookkeeping)</option>
+                <option>Tech Consulting (Lucentra Tech Consulting)</option>
+                <option>Both services</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Tell us about your business</label>
+              <textarea name="message" placeholder="A little about what you're working on and how we can help…" required></textarea>
+            </div>
+            <!-- Honeypot spam filter -->
+            <input type="text" name="_gotcha" style="display:none" />
+            <button type="submit" class="form-submit">Send Message →</button>
+            <div class="form-success" id="form-success">
+              ✅ Thanks! We'll be in touch within one business day.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-logo">Lucentra<span>.</span></div>
+        <div class="footer-links">
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer-divs">
+        <span class="footer-dba">Lucentra Bookkeeping — DBA</span>
+        <span class="footer-dba">Lucentra Tech Consulting — DBA</span>
+      </div>
+      <p>© 2026 <strong>Lucentra</strong>. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Pricing tab switching
+    const tabs = document.querySelectorAll('.pricing-tab');
+    const panels = document.querySelectorAll('.pricing-panel');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        panels.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
+      });
+    });
+
+    // Show success message after form submission (Formspree redirects back)
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('submitted') === 'true') {
+      document.getElementById('form-success').style.display = 'block';
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Smooth AJAX submission so user stays on page
+    const form = document.getElementById('contact-form');
+    if (form) {
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const data = new FormData(form);
+        const action = form.getAttribute('action');
+        try {
+          const res = await fetch(action, {
+            method: 'POST',
+            body: data,
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.ok) {
+            form.reset();
+            const success = document.getElementById('form-success');
+            success.style.display = 'block';
+            success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        } catch(err) {
+          alert('Something went wrong. Please email us directly at hello@lucentrapartners.com');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
